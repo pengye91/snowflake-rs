@@ -146,6 +146,7 @@ impl Connection {
             headers.append(header::AUTHORIZATION, auth_val);
         }
 
+        log::debug!("last step before post request");
         // todo: persist client to use connection polling
         let resp = self
             .client
@@ -155,6 +156,7 @@ impl Connection {
             .send()
             .await?;
 
+        log::debug!("got resp in connection request");
         Ok(resp.json::<R>().await?)
     }
 
