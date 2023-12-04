@@ -327,6 +327,8 @@ impl SnowflakeApi {
 
         let parts = self.session.get_token().await?;
 
+        log::debug!("Got auth tokens successfully");
+
         let body = ExecRequest {
             sql_text: sql_text.to_string(),
             async_exec: false,
@@ -334,6 +336,7 @@ impl SnowflakeApi {
             is_internal: false,
         };
 
+        log::debug!("build execute body successfully");
         let resp = self
             .connection
             .request::<R>(
@@ -344,7 +347,7 @@ impl SnowflakeApi {
                 body,
             )
             .await?;
-
+        log::debug!("got resp successfully");
         Ok(resp)
     }
 }
